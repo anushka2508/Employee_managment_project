@@ -64,6 +64,24 @@ public class EmployeeController {
 		return "redirect:/";
 	}
 	
+	@GetMapping("/sendEmail/{id}")
+ 	public String sendEmail(@PathVariable (value = "id") long id) {
+	
+	// get employee from the service
+	Employee employee = employeeService.getEmployeeById(id);
+	
+	if (employee.getAttendance() < 10) {
+		try {
+			emailService.sendEmail(employee.getEmail(), "Attendance Alert", 
+				"Dear " + employee.getFirstName() + " " + employee.getLastName() + 
+				",\n\nYour attendance is low. Please try to improve it.\n\nRegards,\nAttendance System");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+		return "redirect:/";
+	}
+	
 	
 	@GetMapping("/page/{pageNo}")
 	public String findPaginated(@PathVariable (value = "pageNo") int pageNo, 
