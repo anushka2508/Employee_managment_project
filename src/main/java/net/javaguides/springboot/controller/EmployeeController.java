@@ -20,6 +20,9 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService employeeService;
+	@Autowired
+	private EmailService emailService;
+
 	
 	// display list of employees
 	@GetMapping("/")
